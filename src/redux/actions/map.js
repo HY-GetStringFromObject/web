@@ -3,7 +3,7 @@ import {
   SET_MAP_CENTER
 } from './types'
 
-export const setMapCenter = (center) => dispatch => {
+export const setMapCenter = (center) => (dispatch) => {
   dispatch({type: SET_MAP_CENTER, payload: center})
 }
 
