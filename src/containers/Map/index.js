@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import { Map, GoogleApiWrapper, Polyline } from 'google-maps-react'
+import { Map, GoogleApiWrapper, Polyline, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
 import { getNodesRoute, setMapCenter } from '../../redux/actions'
 
@@ -13,7 +13,7 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const Marker = styled.div`
+const NodeSelector = styled.div`
   height: 10px;
   width: 10px;
   background-color: rgba(255, 0, 0, 0.5);
@@ -48,7 +48,7 @@ class MapContainer extends Component {
   render () {
     return (
       <Container>
-        <Marker />
+        <NodeSelector />
         <Map
           onDragend={this._onDragend}
           google={this.props.google}
@@ -64,6 +64,12 @@ class MapContainer extends Component {
             strokeColor='#0000FF'
             strokeOpacity={0.8}
             strokeWeight={2} />
+          {this.props.map.nodes.map(node => {
+            return (
+              <Marker position={node} />
+            )
+          }
+          )}
         </Map>
       </Container>
     )
