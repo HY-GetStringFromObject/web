@@ -9,7 +9,7 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
     case GET_NODE_ROUTE_SUCCESS:
       return {
         ...state,
-        nodesRoute: action.payload.nodesRoute
+        nodesRoute: action.payload
       }
     default:
       return state
