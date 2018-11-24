@@ -1,10 +1,25 @@
 import React, {Component} from 'react'
-// import styled from 'styled-components'
+import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Polyline } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
 import { getNodesRoute, setMapCenter } from '../../redux/actions'
 
-// const Container = styled.div``
+const Container = styled.div`
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
+const Marker = styled.div`
+  height: 10px;
+  width: 10px;
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  z-index: 100;
+`
 
 const mapStyles = {
   width: '100%',
@@ -17,8 +32,9 @@ class MapContainer extends Component {
 
     this._onDragend = this._onDragend.bind(this)
   }
-  async componentDidMount () {
-    await this.props.getNodesRoute()
+
+  componentDidMount () {
+    this.props.getNodesRoute()
   }
 
   _onDragend (mapProps, map) {
@@ -31,22 +47,25 @@ class MapContainer extends Component {
 
   render () {
     return (
-      <Map
-        onDragend={this._onDragend}
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{
-          lat: 52.589319,
-          lng: 19.668488
-        }}
-      >
-        <Polyline
-          path={this.props.map.nodesRoute}
-          strokeColor='#0000FF'
-          strokeOpacity={0.8}
-          strokeWeight={2} />
-      </Map>
+      <Container>
+        <Marker />
+        <Map
+          onDragend={this._onDragend}
+          google={this.props.google}
+          zoom={14}
+          style={mapStyles}
+          initialCenter={{
+            lat: 52.589319,
+            lng: 19.668488
+          }}
+        >
+          <Polyline
+            path={this.props.map.nodesRoute}
+            strokeColor='#0000FF'
+            strokeOpacity={0.8}
+            strokeWeight={2} />
+        </Map>
+      </Container>
     )
   }
 }
