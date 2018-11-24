@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 // import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Polyline } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
-import { getNodesRoute } from '../../redux/actions'
+import { getNodesRoute, setMapCenter } from '../../redux/actions'
 
 // const Container = styled.div``
 
@@ -15,10 +15,18 @@ class MapContainer extends Component {
   async componentDidMount () {
     await this.props.getNodesRoute()
   }
+  _onDragend (mapProps, map) {
+    const center = {
+      lat: map.center.lat(),
+      lng: map.center.lng()
+    }
+    this.props.setMapCenter(center)
+  }
 
   render () {
     return (
       <Map
+        onDragend={this._onDragend}
         google={this.props.google}
         zoom={14}
         style={mapStyles}
@@ -48,5 +56,6 @@ const GoogleMap = GoogleApiWrapper({
 })(MapContainer)
 
 export default connect(mapStateToProps, {
-  getNodesRoute
+  getNodesRoute,
+  setMapCenter
 })(GoogleMap)
