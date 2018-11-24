@@ -5,9 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
+    "google-map-react": "^1.1.1",
+    "google-maps-react": "^2.0.2",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
+    "npm": "^6.4.1",
     "prop-types": "^15.6.1",
     "qs": "^6.5.2",
     "react": "^16.2.0",
@@ -21,7 +24,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "^2.1.1",
     "react-toastify": "^4.0.0-rc.5",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
@@ -61,5 +64,11 @@
       "expect",
       "localStorage"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

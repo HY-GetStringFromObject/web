@@ -3,7 +3,6 @@ import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import { persistStore } from 'redux-persist'
-import LogRocket from 'logrocket'
 
 import rootReducer from '../redux/reducers'
 
@@ -15,10 +14,6 @@ const middleware = [
   thunk,
   routerMiddleware(history)
 ]
-
-if (process.env.NODE_ENV !== 'development') {
-  middleware.push(LogRocket.reduxMiddleware())
-}
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.devToolsExtension
@@ -39,7 +34,7 @@ const store = createStore(
   composedEnhancers
 )
 
-export const persistor = persistStore(store, null, (err, restoredState) => {
+export const persistor = persistStore(store, null, (err) => {
   if (err) {
     throw err
   }
