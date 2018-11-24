@@ -1,0 +1,65 @@
+{
+  "name": "teacodeio-react-web-boilerplate",
+  "version": "0.1.5",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
+    "history": "^4.7.2",
+    "lodash": "^4.17.5",
+    "moment": "^2.22.1",
+    "prop-types": "^15.6.1",
+    "qs": "^6.5.2",
+    "react": "^16.2.0",
+    "react-collapse": "^4.0.3",
+    "react-datepicker": "^1.4.1",
+    "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "react-infinite-scroller": "^1.1.4",
+    "react-loader": "^2.4.5",
+    "react-motion": "^0.5.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "^1.1.5",
+    "react-toastify": "^4.0.0-rc.5",
+    "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
+    "redux-persist": "^5.9.1",
+    "redux-thunk": "^2.2.0",
+    "rollbar": "^2.4.5",
+    "slug": "^0.9.1",
+    "styled-components": "^3.1.6",
+    "validator": "^9.4.1",
+    "victory": "^0.25.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "cross-env REACT_APP_GIT_SHA=`git rev-parse HEAD` react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "build-docker": "docker build -t registry.gitlab.com/simplifiedbody/sb-web .",
+    "build-docker-prod": "docker build -t registry.gitlab.com/simplifiedbody/sb-web:prod .",
+    "push-docker": "docker push registry.gitlab.com/simplifiedbody/sb-web",
+    "release": "npm run build && npm run build-docker && npm run push-docker",
+    "release-prod": "npm run build && npm run build-docker-prod && npm run push-docker",
+    "lint-fix": "standard --fix",
+    "lint": "standard"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
+    "babel-plugin-add-react-displayname": "^0.0.5",
+    "jest-localstorage-mock": "^2.2.0",
+    "redux-mock-store": "^1.5.1",
+    "standard": "^11.0.1"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "afterEach",
+      "it",
+      "expect",
+      "localStorage"
+    ]
+  }
+}
