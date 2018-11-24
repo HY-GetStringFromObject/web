@@ -12,9 +12,15 @@ const mapStyles = {
 }
 
 class MapContainer extends Component {
+  constructor (props) {
+    super(props)
+
+    this._onDragend = this._onDragend.bind(this)
+  }
   async componentDidMount () {
     await this.props.getNodesRoute()
   }
+
   _onDragend (mapProps, map) {
     const center = {
       lat: map.center.lat(),
