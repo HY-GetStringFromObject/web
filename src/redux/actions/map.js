@@ -2,7 +2,7 @@ import {
   GET_NODE_ERROR, GET_NODE_REQUEST, GET_NODE_SUCCESS,
   GET_NODE_ROUTE_ERROR, GET_NODE_ROUTE_REQUEST, GET_NODE_ROUTE_SUCCESS,
   POST_NODE_ERROR, POST_NODE_REQUEST, POST_NODE_SUCCESS,
-  SET_MAP_CENTER
+  SET_MAP_CENTER, POST_SEGMENT_REQUEST, POST_SEGMENT_SUCCESS, POST_SEGMENT_ERROR, SET_SEGMENT
 } from './types'
 import axiosClient from '../../config/axios'
 
@@ -53,4 +53,31 @@ export const getNodes = () => async (dispatch) => {
   } catch (e) {
     dispatch({type: GET_NODE_ERROR, payload: e})
   }
+}
+
+export const postSegment = (name) => async (dispatch, getState) => {
+  try {
+    dispatch({type: POST_SEGMENT_REQUEST})
+
+    const nodes = getState().map.segment
+
+    const res = await axiosClient()
+      .post(`/segment`, {
+        firstNode: {
+          ...nodes[0]
+        },
+        secondNode: {
+          ...nodes[1]
+        },
+        name
+      })
+
+    dispatch({type: POST_SEGMENT_SUCCESS, payload: res.data})
+  } catch (e) {
+    dispatch({type: POST_SEGMENT_ERROR, payload: e})
+  }
+}
+
+export const setSegment = (nodes) => (dispatch) => {
+  dispatch({type: SET_SEGMENT, payload: nodes})
 }

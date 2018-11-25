@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
-import { getNodes, setMapCenter } from '../../redux/actions'
+
+import SegmentForm from '../Dialogs/segmentForm'
+import { getNodes, setMapCenter, setSegment } from '../../redux/actions'
 
 const Container = styled.div`
   position: absolute;
@@ -13,28 +15,56 @@ const Container = styled.div`
   justify-content: center;
 `
 
-const NodeSelector = styled.div`
-  height: 10px;
-  width: 10px;
-  background-color: rgba(255, 0, 0, 0.5);
-  border-radius: 50%;
-  z-index: 100;
-`
-
 const mapStyles = {
   width: '100%',
   height: '100%'
 }
 
 class SegmentSetup extends Component {
+  constructor (props) {
+    super(props)
+
+    this._setNode = this._setNode.bind(this)
+    this._toggleDialog = this._toggleDialog.bind(this)
+
+    this.state = {
+      nodes: [],
+      open: false
+    }
+  }
+
   componentDidMount () {
-    this.props.getNodes()
+    // this.props.getNodes()
+  }
+
+  _setNode (node) {
+    const nodes = this.state.nodes
+
+    nodes.push(node)
+
+    this.setState({nodes})
+
+    if (this.state.nodes.length === 1) {
+    } else if (this.state.nodes[0] === this.state.nodes[1]) {
+      this.setState({nodes: []})
+    } else {
+      this.props.setSegment(this.state.nodes)
+      this._toggleDialog()
+      this.setState({nodes: []})
+    }
+  }
+
+  _toggleDialog () {
+    this.setState({open: !this.state.open})
   }
 
   render () {
     return (
       <Container>
-        <NodeSelector />
+        <SegmentForm
+          open={this.state.open}
+          onClose={this._toggleDialog}
+        />
         <Map
           google={this.props.google}
           zoom={14}
@@ -46,7 +76,7 @@ class SegmentSetup extends Component {
         >
           {this.props.map.nodes.map(node => {
             return (
-              <Marker key={node.nodId} position={node} />
+              <Marker key={node.nodId} position={node} onClick={() => this._setNode(node)} />
             )
           }
           )}
@@ -68,5 +98,6 @@ const GoogleMap = GoogleApiWrapper({
 
 export default connect(mapStateToProps, {
   getNodes,
-  setMapCenter
+  setMapCenter,
+  setSegment
 })(GoogleMap)

@@ -1,4 +1,10 @@
-import { GET_NODE_ROUTE_SUCCESS, GET_NODE_SUCCESS, POST_NODE_SUCCESS, SET_MAP_CENTER } from '../actions/types'
+import {
+  GET_NODE_ROUTE_SUCCESS,
+  GET_NODE_SUCCESS,
+  POST_NODE_SUCCESS,
+  POST_SEGMENT_SUCCESS,
+  SET_MAP_CENTER, SET_SEGMENT
+} from '../actions/types'
 
 const INITIAL_STATE = {
   nodesRoute: [],
@@ -6,7 +12,18 @@ const INITIAL_STATE = {
     lat: 52.589319,
     lng: 19.668488
   },
-  nodes: []
+  nodes: [{
+    lat: 52.589319,
+    lng: 19.668488,
+    nodId: 1
+  },
+  {
+    lat: 52.590329,
+    lng: 19.668488,
+    nodId: 2
+  }],
+  segment: [],
+  segments: []
 }
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
@@ -30,6 +47,16 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         nodes: action.payload || []
+      }
+    case POST_SEGMENT_SUCCESS:
+      state.segments.push(action.payload)
+      return {
+        ...state
+      }
+    case SET_SEGMENT:
+      return {
+        ...state,
+        segment: action.payload
       }
     default:
       return state
