@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import logo from './logo.svg';
 // import '../App.css';
-import MapContainer from './Map/index'
+import NodeSetup from './NodeSetup/index'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
@@ -20,7 +20,8 @@ class App extends Component {
   render () {
     return (
       <Switch>
-        <Route exact path='/' component={MapContainer} />
+        <Route exact path='/node' component={NodeSetup} />
+        <Route exact path='/routes' component={NodeSetup} />
       </Switch>
     )
   }

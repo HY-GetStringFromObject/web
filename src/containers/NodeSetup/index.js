@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import { Map, GoogleApiWrapper, Polyline, Marker } from 'google-maps-react'
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
-import { getNodesRoute, setMapCenter } from '../../redux/actions'
+import { getNodes, setMapCenter } from '../../redux/actions'
 
 const Container = styled.div`
   position: absolute;
@@ -26,7 +26,7 @@ const mapStyles = {
   height: '100%'
 }
 
-class MapContainer extends Component {
+class NodeSetup extends Component {
   constructor (props) {
     super(props)
 
@@ -34,7 +34,7 @@ class MapContainer extends Component {
   }
 
   componentDidMount () {
-    this.props.getNodesRoute()
+    this.props.getNodes()
   }
 
   _onDragend (mapProps, map) {
@@ -59,11 +59,6 @@ class MapContainer extends Component {
             lng: 19.668488
           }}
         >
-          <Polyline
-            path={this.props.map.nodesRoute}
-            strokeColor='#0000FF'
-            strokeOpacity={0.8}
-            strokeWeight={2} />
           {this.props.map.nodes.map(node => {
             return (
               <Marker position={node} />
@@ -84,9 +79,9 @@ const mapStateToProps = (state) => {
 
 const GoogleMap = GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-})(MapContainer)
+})(NodeSetup)
 
 export default connect(mapStateToProps, {
-  getNodesRoute,
+  getNodes,
   setMapCenter
 })(GoogleMap)
