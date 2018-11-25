@@ -26,7 +26,7 @@ const NodeSelector = styled.div`
 const FormWrapper = styled.div`
   position: absolute;
   bottom: 20px;
-  width: 100%
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,8 +43,22 @@ const mapStyles = {
 }
 
 class RouteSetup extends Component {
+  constructor (props) {
+    super(props)
+
+    this._onDragend = this._onDragend.bind(this)
+  }
+
   componentDidMount () {
     this.props.getNodes()
+  }
+
+  _onDragend (mapProps, map) {
+    const center = {
+      lat: map.center.lat(),
+      lng: map.center.lng()
+    }
+    this.props.setMapCenter(center)
   }
 
   render () {
@@ -69,7 +83,7 @@ class RouteSetup extends Component {
               strokeWeight={4} />
             {this.props.map.nodes.map(node => {
               return (
-                <Marker position={node} />
+                <Marker key={node.nodId} position={node} />
               )
             }
             )}

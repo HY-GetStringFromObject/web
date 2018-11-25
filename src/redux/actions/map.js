@@ -33,23 +33,27 @@ export const postNode = () => async (dispatch, getState) => {
     const center = getState().map.center
 
     const res = await axiosClient()
-      .post(`/node`, {node: center})
+      .post(`/node`, {...center})
 
-    dispatch({type: POST_NODE_SUCCESS, payload: res.body})
+    dispatch({type: POST_NODE_SUCCESS, payload: res.data})
   } catch (e) {
     dispatch({type: POST_NODE_ERROR, payload: e})
+    throw new Error(e.message)
   }
 }
 
-export const getNodes = () => (dispatch) => {
+export const getNodes = () => async (dispatch) => {
   try {
     dispatch({type: GET_NODE_REQUEST})
 
-    const res = axiosClient()
+    const res = await axiosClient()
       .get(`/node`)
 
-    dispatch({type: GET_NODE_SUCCESS, payload: res.body})
+    console.log(res)
+
+    dispatch({type: GET_NODE_SUCCESS, payload: res.data})
   } catch (e) {
     dispatch({type: GET_NODE_ERROR, payload: e})
+    throw new Error(e.message)
   }
 }

@@ -37,20 +37,11 @@ class NodeSetup extends Component {
     this.props.getNodes()
   }
 
-  _onDragend (mapProps, map) {
-    const center = {
-      lat: map.center.lat(),
-      lng: map.center.lng()
-    }
-    this.props.setMapCenter(center)
-  }
-
   render () {
     return (
       <Container>
         <NodeSelector />
         <Map
-          onDragend={this._onDragend}
           google={this.props.google}
           zoom={14}
           style={mapStyles}

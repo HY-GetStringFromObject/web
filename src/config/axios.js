@@ -6,10 +6,7 @@ export const API_URL = process.env.NODE_ENV === 'development' || process.env.NOD
 function axiosClient () {
   const axiosClient = axios.create({
     baseURL: API_URL,
-    timeout: 15000,
-    headers: {
-      Authorization: localStorage.getItem('auth')
-    }
+    timeout: 15000
   })
 
   if (process.env.NODE_ENV === 'development') {
