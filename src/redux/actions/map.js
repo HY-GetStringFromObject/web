@@ -99,14 +99,14 @@ export const getPolyline = (segment) => async (dispatch) => {
   }
 }
 
-export const getRoute = ({firstNode, secondNode}) => async (dispatch) => {
+export const getRoute = (nodes) => async (dispatch) => {
   try {
     dispatch({type: GET_ROUTE_REQUEST})
-
+    console.log(nodes)
     const res = await axiosClient()
-      .get(`/route?origin=${firstNode.lat},${firstNode.lng}&destination=${secondNode.lat},${secondNode.lng}`)
+      .get(`/route/${nodes[0]}/${nodes[1]}`)
 
-    dispatch({type: GET_ROUTE_SUCCESS, payload: {polyline: res.data.polyline, firstNode, secondNode}})
+    dispatch({type: GET_ROUTE_SUCCESS, payload: {polyline: res.data.polyline, first: nodes[0], last: nodes[1]}})
   } catch (e) {
     dispatch({type: GET_ROUTE_ERROR, payload: e})
   }

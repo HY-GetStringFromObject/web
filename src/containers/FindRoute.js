@@ -63,8 +63,7 @@ class SegmentSetup extends Component {
     } else if (this.state.nodes[0] === this.state.nodes[1]) {
       this.setState({nodes: []})
     } else {
-      console.log(this.state.nodes)
-      this.props.getRoute(this.state.nodes)
+      this.props.getRoute(this.state.nodes.map(node => node.nodId))
       this.setState({nodes: []})
     }
   }

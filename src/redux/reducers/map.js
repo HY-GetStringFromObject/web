@@ -47,7 +47,7 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
     case GET_NODE_SUCCESS:
       return {
         ...state,
-        nodes: action.payload || [],
+        nodes: action.payload,
         route: []
       }
     case POST_SEGMENT_SUCCESS:
@@ -66,11 +66,11 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
         ...state
       }
     case GET_ROUTE_SUCCESS:
-      const _nodes = state.nodes.filter(node => node.nodId === action.payload.firstNode.nodId || node.nodId === action.payload.secondNode.nodId)
+      const _nodes = state.nodes.filter(node => node.nodId === action.payload.first || node.nodId === action.payload.last)
       return {
         ...state,
         route: action.payload.polyline || [],
-        _nodes
+        nodes: _nodes
       }
     case SET_SEGMENT:
       return {
