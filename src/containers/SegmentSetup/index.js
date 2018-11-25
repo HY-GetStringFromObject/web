@@ -46,7 +46,7 @@ class SegmentSetup extends Component {
         >
           {this.props.map.nodes.map(node => {
             return (
-              <Marker position={node} />
+              <Marker key={node.nodId} position={node} />
             )
           }
           )}

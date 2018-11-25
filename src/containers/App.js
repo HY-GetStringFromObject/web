@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <Switch>
-          <Route exact path='/routes' component={SegmentSetup} />
+          <Route exact path='/segment' component={SegmentSetup} />
           <Route exact path='/node' component={NodeSetup} />
         </Switch>
       </MuiThemeProvider>
