@@ -1,4 +1,5 @@
 import {
+  DELETE_NODE_SUCCESS,
   GET_NODE_ROUTE_SUCCESS,
   GET_NODE_SUCCESS, GET_POLYLINE_SUCCESS, GET_ROUTE_SUCCESS, GET_SEGMENT_SUCCESS,
   POST_NODE_SUCCESS,
@@ -22,6 +23,12 @@ const INITIAL_STATE = {
 export const mapReducer = (state = INITIAL_STATE, action) => {
   console.log(action)
   switch (action.type) {
+    case DELETE_NODE_SUCCESS:
+      const nodes = state.nodes.filter(node => node.nodId !== action.payload)
+      return {
+        ...state,
+        nodes
+      }
     case SET_MAP_CENTER:
       return {
         ...state,
