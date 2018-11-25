@@ -1,6 +1,6 @@
 import {
   GET_NODE_ROUTE_SUCCESS,
-  GET_NODE_SUCCESS,
+  GET_NODE_SUCCESS, GET_SEGMENT_SUCCESS,
   POST_NODE_SUCCESS,
   POST_SEGMENT_SUCCESS,
   SET_MAP_CENTER, SET_SEGMENT
@@ -23,7 +23,18 @@ const INITIAL_STATE = {
     nodId: 2
   }],
   segment: [],
-  segments: []
+  segments: [{
+    firstNode:
+      {
+        lat: 52.589319,
+        lng: 19.668488,
+        nodId: 1
+      },
+    secondNode: {
+      lat: 52.590329,
+      lng: 19.668488,
+      nodId: 2
+    }}]
 }
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
@@ -52,6 +63,11 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
       state.segments.push(action.payload)
       return {
         ...state
+      }
+    case GET_SEGMENT_SUCCESS:
+      return {
+        ...state,
+        segments: action.payload
       }
     case SET_SEGMENT:
       return {

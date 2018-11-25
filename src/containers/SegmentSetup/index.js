@@ -4,7 +4,7 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
 
 import SegmentForm from '../Dialogs/segmentForm'
-import { getNodes, setMapCenter, setSegment } from '../../redux/actions'
+import { getNodes, setMapCenter, setSegment, getPolyline, getSegments } from '../../redux/actions'
 
 const Container = styled.div`
   position: absolute;
@@ -33,8 +33,13 @@ class SegmentSetup extends Component {
     }
   }
 
-  componentDidMount () {
-    // this.props.getNodes()
+  async componentDidMount () {
+    this.props.getNodes()
+    this.props.getSegments()
+
+    const polylinePromises = this.props.map.segments.map(segment => this.props.getPolyline(segment))
+
+    Promise.all(polylinePromises)
   }
 
   _setNode (node) {
@@ -99,5 +104,7 @@ const GoogleMap = GoogleApiWrapper({
 export default connect(mapStateToProps, {
   getNodes,
   setMapCenter,
-  setSegment
+  setSegment,
+  getPolyline,
+  getSegments
 })(GoogleMap)
