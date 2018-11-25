@@ -29,13 +29,13 @@ export const getNodesRoute = () => async (dispatch) => {
   }
 }
 
-export const postNode = () => (dispatch, getState) => {
+export const postNode = () => async (dispatch, getState) => {
   try {
     dispatch({type: POST_NODE_REQUEST})
 
     const center = getState().map.center
 
-    const res = axiosClient()
+    const res = await axiosClient()
       .post(`/node`, {node: center})
 
     dispatch({type: POST_NODE_SUCCESS, payload: res.data})

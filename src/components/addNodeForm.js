@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-import CardHeader from '@material-ui/core/es/CardHeader/CardHeader'
 import Button from '@material-ui/core/Button'
 import strings from '../assets/strings'
 
@@ -18,9 +18,13 @@ function AddNodeForm (props) {
   const { classes } = props
   return (
     <Card className={classes.card}>
-      <CardHeader title={strings.addNewNode} />
+      <CardContent>
+        {strings.addNewNode}
+      </CardContent>
       <CardActions>
-        <Button variant='contained' className={classes.button} onClick={props.onAdd}>{strings.add}</Button>
+        <Button variant='contained' className={classes.button} onClick={props.onAdd}>
+          {strings.add}
+        </Button>
       </CardActions>
     </Card>
   )

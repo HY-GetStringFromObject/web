@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Polyline, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
-import { getNodesRoute, setMapCenter } from '../../redux/actions'
+import { getNodesRoute, setMapCenter, postNode } from '../../redux/actions'
 import colors from '../../assets/colors'
+import AddNodeForm from '../../components/addNodeForm'
 
 const Container = styled.div`
   position: absolute;
@@ -20,6 +21,20 @@ const NodeSelector = styled.div`
   background-color: ${colors.alizarin}
   border-radius: 50%;
   z-index: 100;
+`
+
+const FormWrapper = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 100%
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const FormContainer = styled.div`
+  width: 300px;
+  z-index: 1000;
 `
 
 const mapStyles = {
@@ -48,31 +63,38 @@ class MapContainer extends Component {
 
   render () {
     return (
-      <Container>
-        <NodeSelector />
-        <Map
-          onDragend={this._onDragend}
-          google={this.props.google}
-          zoom={14}
-          style={mapStyles}
-          initialCenter={{
-            lat: 52.589319,
-            lng: 19.668488
-          }}
-        >
-          <Polyline
-            path={this.props.map.nodesRoute}
-            strokeColor={colors.peterRiver}
-            strokeOpacity={0.8}
-            strokeWeight={4} />
-          {this.props.map.nodes.map(node => {
-            return (
-              <Marker position={node} />
-            )
-          }
-          )}
-        </Map>
-      </Container>
+      <div>
+        <Container>
+          <NodeSelector />
+          <Map
+            onDragend={this._onDragend}
+            google={this.props.google}
+            zoom={14}
+            style={mapStyles}
+            initialCenter={{
+              lat: 52.589319,
+              lng: 19.668488
+            }}
+          >
+            <Polyline
+              path={this.props.map.nodesRoute}
+              strokeColor={colors.peterRiver}
+              strokeOpacity={0.8}
+              strokeWeight={4} />
+            {this.props.map.nodes.map(node => {
+              return (
+                <Marker position={node} />
+              )
+            }
+            )}
+          </Map>
+        </Container>
+        <FormWrapper>
+          <FormContainer>
+            <AddNodeForm onAdd={this.props.postNode} />
+          </FormContainer>
+        </FormWrapper>
+      </div>
     )
   }
 }
@@ -89,5 +111,6 @@ const GoogleMap = GoogleApiWrapper({
 
 export default connect(mapStateToProps, {
   getNodesRoute,
-  setMapCenter
+  setMapCenter,
+  postNode
 })(GoogleMap)

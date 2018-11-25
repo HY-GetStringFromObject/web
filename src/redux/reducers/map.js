@@ -3,10 +3,7 @@ import { GET_NODE_ROUTE_SUCCESS, POST_NODE_SUCCESS, SET_MAP_CENTER } from '../ac
 const INITIAL_STATE = {
   nodesRoute: [],
   center: {},
-  nodes: [{
-    lat: 52.58934507209052,
-    lng: 19.668445084655787
-  }]
+  nodes: []
 }
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
@@ -22,9 +19,9 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
         nodesRoute: action.payload
       }
     case POST_NODE_SUCCESS:
+      state.nodes = state.nodes.push(action.payload)
       return {
-        ...state,
-        nodes: state.nodes.push(action.payload)
+        ...state
       }
     default:
       return state
