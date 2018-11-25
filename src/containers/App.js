@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import NodeSetup from './NodeSetup/index'
+import NodeSetup from './RouteSetup'
+import RouteSetup from './NodeSetup'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
@@ -18,10 +19,12 @@ class App extends Component {
 
   render () {
     return (
-      <Switch>
-        <Route exact path='/node' component={NodeSetup} />
-        <Route exact path='/routes' component={NodeSetup} />
-      </Switch>
+      <MuiThemeProvider>
+        <Switch>
+          <Route exact path='/node' component={NodeSetup} />
+          <Route exact path='/routes' component={RouteSetup} />
+        </Switch>
+      </MuiThemeProvider>
     )
   }
 }
