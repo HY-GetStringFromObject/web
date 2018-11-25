@@ -1,4 +1,10 @@
-import { GET_NODE_ROUTE_SUCCESS, GET_NODE_SUCCESS, POST_NODE_SUCCESS, SET_MAP_CENTER } from '../actions/types'
+import {
+  DELETE_NODE_SUCCESS,
+  GET_NODE_ROUTE_SUCCESS,
+  GET_NODE_SUCCESS,
+  POST_NODE_SUCCESS,
+  SET_MAP_CENTER
+} from '../actions/types'
 
 const INITIAL_STATE = {
   nodesRoute: [],
@@ -11,6 +17,12 @@ const INITIAL_STATE = {
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case DELETE_NODE_SUCCESS:
+      const nodes = state.nodes.filter(node => node.nodId !== action.payload)
+      return {
+        ...state,
+        nodes
+      }
     case SET_MAP_CENTER:
       return {
         ...state,

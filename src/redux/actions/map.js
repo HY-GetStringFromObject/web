@@ -2,12 +2,26 @@ import {
   GET_NODE_ERROR, GET_NODE_REQUEST, GET_NODE_SUCCESS,
   GET_NODE_ROUTE_ERROR, GET_NODE_ROUTE_REQUEST, GET_NODE_ROUTE_SUCCESS,
   POST_NODE_ERROR, POST_NODE_REQUEST, POST_NODE_SUCCESS,
+  DELETE_NODE_ERROR, DELETE_NODE_REQUEST, DELETE_NODE_SUCCESS,
   SET_MAP_CENTER
 } from './types'
 import axiosClient from '../../config/axios'
 
 export const setMapCenter = (center) => (dispatch) => {
   dispatch({type: SET_MAP_CENTER, payload: center})
+}
+
+export const deleteNode = (nodId) => async (dispatch) => {
+  try {
+    dispatch({type: DELETE_NODE_REQUEST})
+
+    const res = await axiosClient()
+      .delete(`/node/${nodId}`)
+
+    dispatch({type: DELETE_NODE_SUCCESS, payload: res.data})
+  } catch (e) {
+    dispatch({type: DELETE_NODE_ERROR, payload: e})
+  }
 }
 
 export const getNodesRoute = (nodes) => async (dispatch) => {

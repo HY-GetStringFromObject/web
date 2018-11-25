@@ -2,9 +2,13 @@ import React, {Component} from 'react'
 import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Polyline, Marker } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
-import { getNodesRoute, setMapCenter, postNode, getNodes } from '../../redux/actions'
+import { getNodesRoute, setMapCenter, postNode, getNodes, deleteNode } from '../../redux/actions'
 import colors from '../../assets/colors'
 import AddNodeForm from '../../components/addNodeForm'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions/DialogActions'
+import Button from '@material-ui/core/Button/Button'
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle'
 
 const Container = styled.div`
   position: absolute;
@@ -45,8 +49,29 @@ const mapStyles = {
 class NodeSetup extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      open: false,
+      nodId: 0
+    }
 
     this._onDragend = this._onDragend.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.deleteNode = this.deleteNode.bind(this)
+  }
+
+  async deleteNode () {
+    await this.props.deleteNode(this.state.nodId)
+    this.setState({open: false})
+  }
+  handleOpen (nodId) {
+    this.setState({
+      open: true,
+      nodId
+    })
+  }
+  handleClose () {
+    this.setState({open: false})
   }
 
   componentDidMount () {
@@ -65,6 +90,19 @@ class NodeSetup extends Component {
     return (
       <div>
         <Container>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+          >
+            <DialogTitle id='alert-dialog-title'>{'Node Manager'}</DialogTitle>
+            <DialogActions>
+              <Button onClick={this.deleteNode} color='secondary'>
+                Delete node
+              </Button>
+            </DialogActions>
+          </Dialog>
           <NodeSelector />
           <Map
             onDragend={this._onDragend}
@@ -83,7 +121,7 @@ class NodeSetup extends Component {
               strokeWeight={4} />
             {this.props.map.nodes.map(node => {
               return (
-                <Marker key={node.nodId} position={node} />
+                <Marker key={node.nodId} position={node} onClick={() => this.handleOpen(node.nodId)} />
               )
             }
             )}
@@ -113,5 +151,6 @@ export default connect(mapStateToProps, {
   getNodesRoute,
   setMapCenter,
   postNode,
-  getNodes
+  getNodes,
+  deleteNode
 })(GoogleMap)
