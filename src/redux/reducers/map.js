@@ -1,6 +1,6 @@
 import {
   GET_NODE_ROUTE_SUCCESS,
-  GET_NODE_SUCCESS, GET_POLYLINE_SUCCESS, GET_SEGMENT_SUCCESS,
+  GET_NODE_SUCCESS, GET_POLYLINE_SUCCESS, GET_ROUTE_SUCCESS, GET_SEGMENT_SUCCESS,
   POST_NODE_SUCCESS,
   POST_SEGMENT_SUCCESS,
   SET_MAP_CENTER, SET_SEGMENT
@@ -15,7 +15,8 @@ const INITIAL_STATE = {
   nodes: [],
   segment: [],
   polylines: [],
-  segments: []
+  segments: [],
+  route: []
 }
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
@@ -39,7 +40,8 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
     case GET_NODE_SUCCESS:
       return {
         ...state,
-        nodes: action.payload || []
+        nodes: action.payload || [],
+        route: []
       }
     case POST_SEGMENT_SUCCESS:
       state.segments.push(action.payload)
@@ -55,6 +57,13 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
       state.polylines.push(action.payload)
       return {
         ...state
+      }
+    case GET_ROUTE_SUCCESS:
+      const nodes = state.nodes.filter(node => node.nodId === action.payload.firstNode.nodId || node.nodId === action.payload.secondNode.nodId)
+      return {
+        ...state,
+        route: action.payload.polyline || [],
+        nodes
       }
     case SET_SEGMENT:
       return {

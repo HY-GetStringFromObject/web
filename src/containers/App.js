@@ -5,6 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import FindRoute from './FindRoute'
 
 class App extends Component {
   constructor (props) {
@@ -23,6 +24,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/segment' component={SegmentSetup} />
           <Route exact path='/node' component={NodeSetup} />
+          <Route exact path='/' component={FindRoute} />
         </Switch>
       </MuiThemeProvider>
     )

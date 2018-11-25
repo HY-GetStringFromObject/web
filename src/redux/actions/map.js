@@ -14,7 +14,12 @@ import {
   POST_SEGMENT_ERROR,
   SET_SEGMENT,
   GET_POLYLINE_REQUEST,
-  GET_POLYLINE_SUCCESS, GET_POLYLINE_ERROR, GET_SEGMENT_SUCCESS, GET_SEGMENT_REQUEST, GET_SEGMENT_ERROR
+  GET_POLYLINE_SUCCESS,
+  GET_POLYLINE_ERROR,
+  GET_SEGMENT_SUCCESS,
+  GET_SEGMENT_REQUEST,
+  GET_SEGMENT_ERROR,
+  GET_ROUTE_REQUEST, GET_ROUTE_SUCCESS, GET_ROUTE_ERROR
 } from './types'
 import axiosClient from '../../config/axios'
 
@@ -75,6 +80,19 @@ export const getPolyline = (segment) => async (dispatch) => {
     dispatch({type: GET_POLYLINE_SUCCESS, payload: res.data.polyline})
   } catch (e) {
     dispatch({type: GET_POLYLINE_ERROR, payload: e})
+  }
+}
+
+export const getRoute = ({firstNode, secondNode}) => async (dispatch) => {
+  try {
+    dispatch({type: GET_ROUTE_REQUEST})
+
+    const res = await axiosClient()
+      .get(`/route?origin=${firstNode.lat},${firstNode.lng}&destination=${secondNode.lat},${secondNode.lng}`)
+
+    dispatch({type: GET_ROUTE_SUCCESS, payload: {polyline: res.data.polyline, firstNode, secondNode}})
+  } catch (e) {
+    dispatch({type: GET_ROUTE_ERROR, payload: e})
   }
 }
 
