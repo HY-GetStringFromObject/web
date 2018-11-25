@@ -42,7 +42,7 @@ const mapStyles = {
   height: '100%'
 }
 
-class MapContainer extends Component {
+class RouteSetup extends Component {
   constructor (props) {
     super(props)
 
@@ -50,15 +50,7 @@ class MapContainer extends Component {
   }
 
   componentDidMount () {
-    this.props.getNodesRoute()
-  }
-
-  _onDragend (mapProps, map) {
-    const center = {
-      lat: map.center.lat(),
-      lng: map.center.lng()
-    }
-    this.props.setMapCenter(center)
+    this.props.getNodes()
   }
 
   render () {
@@ -107,7 +99,7 @@ const mapStateToProps = (state) => {
 
 const GoogleMap = GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-})(MapContainer)
+})(RouteSetup)
 
 export default connect(mapStateToProps, {
   getNodesRoute,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-
-import MapContainer from './Map/index'
+import NodeSetup from './NodeSetup/index'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
@@ -19,11 +18,10 @@ class App extends Component {
 
   render () {
     return (
-      <MuiThemeProvider>
-        <Switch>
-          <Route exact path='/' component={MapContainer} />
-        </Switch>
-      </MuiThemeProvider>
+      <Switch>
+        <Route exact path='/node' component={NodeSetup} />
+        <Route exact path='/routes' component={NodeSetup} />
+      </Switch>
     )
   }
 }

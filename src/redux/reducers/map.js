@@ -1,4 +1,4 @@
-import { GET_NODE_ROUTE_SUCCESS, POST_NODE_SUCCESS, SET_MAP_CENTER } from '../actions/types'
+import { GET_NODE_ROUTE_SUCCESS, GET_NODE_SUCCESS, POST_NODE_SUCCESS, SET_MAP_CENTER } from '../actions/types'
 
 const INITIAL_STATE = {
   nodesRoute: [],
@@ -22,6 +22,11 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
       state.nodes = state.nodes.push(action.payload)
       return {
         ...state
+      }
+    case GET_NODE_SUCCESS:
+      return {
+        ...state,
+        nodes: action.payload || []
       }
     default:
       return state
