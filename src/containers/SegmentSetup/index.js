@@ -26,13 +26,7 @@ const mapStyles = {
   height: '100%'
 }
 
-class NodeSetup extends Component {
-  constructor (props) {
-    super(props)
-
-    this._onDragend = this._onDragend.bind(this)
-  }
-
+class SegmentSetup extends Component {
   componentDidMount () {
     this.props.getNodes()
   }
@@ -70,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const GoogleMap = GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-})(NodeSetup)
+})(SegmentSetup)
 
 export default connect(mapStateToProps, {
   getNodes,

@@ -22,7 +22,6 @@ export const getNodesRoute = (nodes) => async (dispatch) => {
     dispatch({type: GET_NODE_ROUTE_SUCCESS, payload: nodesRoute})
   } catch (e) {
     dispatch({type: GET_NODE_ROUTE_ERROR, payload: e})
-    throw new Error(e.message)
   }
 }
 
@@ -38,7 +37,6 @@ export const postNode = () => async (dispatch, getState) => {
     dispatch({type: POST_NODE_SUCCESS, payload: res.data})
   } catch (e) {
     dispatch({type: POST_NODE_ERROR, payload: e})
-    throw new Error(e.message)
   }
 }
 
@@ -54,6 +52,5 @@ export const getNodes = () => async (dispatch) => {
     dispatch({type: GET_NODE_SUCCESS, payload: res.data})
   } catch (e) {
     dispatch({type: GET_NODE_ERROR, payload: e})
-    throw new Error(e.message)
   }
 }

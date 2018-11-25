@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NodeSetup from './RouteSetup'
-import RouteSetup from './NodeSetup'
+import SegmentSetup from './SegmentSetup'
+import NodeSetup from './NodeSetup'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {push} from 'react-router-redux'
@@ -21,8 +21,8 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <Switch>
+          <Route exact path='/routes' component={SegmentSetup} />
           <Route exact path='/node' component={NodeSetup} />
-          <Route exact path='/routes' component={RouteSetup} />
         </Switch>
       </MuiThemeProvider>
     )

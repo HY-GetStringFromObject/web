@@ -42,7 +42,7 @@ const mapStyles = {
   height: '100%'
 }
 
-class RouteSetup extends Component {
+class NodeSetup extends Component {
   constructor (props) {
     super(props)
 
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => {
 
 const GoogleMap = GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY
-})(RouteSetup)
+})(NodeSetup)
 
 export default connect(mapStateToProps, {
   getNodesRoute,
