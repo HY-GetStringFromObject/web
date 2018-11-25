@@ -82,7 +82,13 @@ class SegmentSetup extends Component {
         >
           {this.props.map.nodes.map(node => {
             return (
-              <Marker key={node.nodId} position={node} onClick={() => this._setNode(node)} />
+              <Marker
+                key={node.nodId}
+                position={node}
+                icon={{
+                  url: this.state.nodId === node.nodId ? '/img/markerActive.svg' : '/img/marker.svg'
+                }}
+                onClick={() => this._setNode(node)} />
             )
           }
           )}
