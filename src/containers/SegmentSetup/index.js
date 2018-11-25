@@ -86,7 +86,7 @@ class SegmentSetup extends Component {
                 key={node.nodId}
                 position={node}
                 icon={{
-                  url: this.state.nodId === node.nodId ? '/img/markerActive.svg' : '/img/marker.svg'
+                  url: this.state.nodes.indexOf(node) > -1 ? '/img/markerActive.svg' : '/img/marker.svg'
                 }}
                 onClick={() => this._setNode(node)} />
             )
