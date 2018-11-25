@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
+import { Map, GoogleApiWrapper, Marker, Polyline } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
 
 import SegmentForm from '../Dialogs/segmentForm'
 import { getNodes, setMapCenter, setSegment, getPolyline, getSegments } from '../../redux/actions'
+import colors from '../../assets/colors'
 
 const Container = styled.div`
   position: absolute;
@@ -82,6 +83,16 @@ class SegmentSetup extends Component {
           {this.props.map.nodes.map(node => {
             return (
               <Marker key={node.nodId} position={node} onClick={() => this._setNode(node)} />
+            )
+          }
+          )}
+          {this.props.map.polylines.map(polyline => {
+            return (
+              <Polyline
+                path={polyline}
+                strokeColor={colors.peterRiver}
+                strokeOpacity={0.8}
+                strokeWeight={4} />
             )
           }
           )}
