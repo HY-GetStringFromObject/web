@@ -79,7 +79,7 @@ export const getPolyline = (segment) => async (dispatch) => {
 
     console.log(res)
 
-    dispatch({type: GET_POLYLINE_SUCCESS, payload: res.data})
+    dispatch({type: GET_POLYLINE_SUCCESS, payload: res.data.polyline})
   } catch (e) {
     dispatch({type: GET_POLYLINE_ERROR, payload: e})
   }
