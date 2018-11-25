@@ -59,8 +59,6 @@ export const getNodes = () => async (dispatch) => {
     const res = await axiosClient()
       .get(`/node`)
 
-    console.log(res)
-
     dispatch({type: GET_NODE_SUCCESS, payload: res.data})
   } catch (e) {
     dispatch({type: GET_NODE_ERROR, payload: e})
@@ -72,12 +70,7 @@ export const getPolyline = (segment) => async (dispatch) => {
     dispatch({type: GET_POLYLINE_REQUEST})
 
     const res = await axiosClient()
-      .get(`/polyline`, {
-        origin: segment.firstNode,
-        destination: segment.secondNode
-      })
-
-    console.log(res)
+      .get(`/polyline?origin=${segment.firstNode.lat},${segment.firstNode.lng}&destination=${segment.secondNode.lat},${segment.secondNode.lng}`)
 
     dispatch({type: GET_POLYLINE_SUCCESS, payload: res.data.polyline})
   } catch (e) {
@@ -91,19 +84,25 @@ export const postSegment = (name) => async (dispatch, getState) => {
 
     const nodes = getState().map.segment
 
+    const data = {
+      firstNode: {
+        ...nodes[0]
+      },
+      secondNode: {
+        ...nodes[1]
+      },
+      name,
+      length: 1
+    }
+
     const res = await axiosClient()
-      .post(`/segment`, {
-        firstNode: {
-          ...nodes[0]
-        },
-        secondNode: {
-          ...nodes[1]
-        },
-        name
-      })
+      .post(`/segment`, data)
 
     dispatch({type: POST_SEGMENT_SUCCESS, payload: res.data})
+
+    return res.data
   } catch (e) {
+    console.log(e)
     dispatch({type: POST_SEGMENT_ERROR, payload: e})
   }
 }

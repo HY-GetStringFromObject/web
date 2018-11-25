@@ -36,7 +36,7 @@ class SegmentSetup extends Component {
 
   async componentDidMount () {
     this.props.getNodes()
-    this.props.getSegments()
+    await this.props.getSegments()
 
     const polylinePromises = this.props.map.segments.map(segment => this.props.getPolyline(segment))
 

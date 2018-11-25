@@ -11,7 +11,7 @@ import Dialog from '@material-ui/core/Dialog/Dialog'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
-import { postSegment } from '../../redux/actions'
+import { postSegment, getPolyline } from '../../redux/actions'
 
 const renderTextField = ({
   input,
@@ -34,7 +34,8 @@ class SegmentForm extends Component {
   }
 
   async _submit ({name}) {
-    await this.props.postSegment(name)
+    const segment = await this.props.postSegment(name)
+    await this.props.getPolyline(segment)
     this.props.onClose()
   }
 
@@ -82,7 +83,8 @@ function mapStateToProps () {
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     submitForm: () => submit('SegmentForm'),
-    postSegment
+    postSegment,
+    getPolyline
   }, dispatch)
 }
 

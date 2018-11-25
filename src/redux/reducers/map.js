@@ -12,33 +12,14 @@ const INITIAL_STATE = {
     lat: 52.589319,
     lng: 19.668488
   },
-  nodes: [{
-    lat: 52.589319,
-    lng: 19.668488,
-    nodId: 1
-  },
-  {
-    lat: 52.593329,
-    lng: 19.668488,
-    nodId: 2
-  }],
+  nodes: [],
   segment: [],
-  polylines: [[{lat: 52.589319, lng: 19.668488}, {lat: 52.593329, lng: 19.668488}]],
-  segments: [{
-    firstNode:
-      {
-        lat: 52.589319,
-        lng: 19.668488,
-        nodId: 1
-      },
-    secondNode: {
-      lat: 52.593329,
-      lng: 19.668488,
-      nodId: 2
-    }}]
+  polylines: [],
+  segments: []
 }
 
 export const mapReducer = (state = INITIAL_STATE, action) => {
+  console.log(action)
   switch (action.type) {
     case SET_MAP_CENTER:
       return {
@@ -68,7 +49,7 @@ export const mapReducer = (state = INITIAL_STATE, action) => {
     case GET_SEGMENT_SUCCESS:
       return {
         ...state,
-        segments: action.payload
+        segments: action.payload || []
       }
     case GET_POLYLINE_SUCCESS:
       state.polylines.push(action.payload)
