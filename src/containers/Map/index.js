@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Map, GoogleApiWrapper, Polyline } from 'google-maps-react'
 import connect from 'react-redux/es/connect/connect'
 import { getNodesRoute, setMapCenter } from '../../redux/actions'
+import colors from '../../assets/colors'
 
 const Container = styled.div`
   position: absolute;
@@ -16,7 +17,7 @@ const Container = styled.div`
 const Marker = styled.div`
   height: 10px;
   width: 10px;
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: ${colors.alizarin}
   border-radius: 50%;
   z-index: 100;
 `
@@ -61,9 +62,9 @@ class MapContainer extends Component {
         >
           <Polyline
             path={this.props.map.nodesRoute}
-            strokeColor='#0000FF'
+            strokeColor={colors.peterRiver}
             strokeOpacity={0.8}
-            strokeWeight={2} />
+            strokeWeight={4} />
         </Map>
       </Container>
     )
