@@ -121,7 +121,13 @@ class NodeSetup extends Component {
               strokeWeight={4} />
             {this.props.map.nodes.map(node => {
               return (
-                <Marker key={node.nodId} position={node} onClick={() => this.handleOpen(node.nodId)} />
+                <Marker
+                  key={node.nodId}
+                  position={node}
+                  icon={{
+                    url: this.state.nodId === node.nodId ? '/img/markerActive.svg' : '/img/marker.svg'
+                  }}
+                  onClick={() => this.handleOpen(node.nodId)} />
               )
             }
             )}
